@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nasa/core/extensions.dart';
 import 'package:nasa/models/apod_model.dart';
@@ -12,39 +14,56 @@ class APODPage extends StatefulWidget {
 }
 
 class _APODPageState extends State<APODPage> {
-  List<APODModel> bla = [];
-  late final TextEditingController _controller;
+  List<APODModel> _apodList = [];
+  List<APODModel> currentAPODList = [];
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
     getAPOD();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
   getAPOD() async {
     final apodRepository = APODRepository();
-    bla = await apodRepository.getAPOD();
-    bla.sort((a, b) => b.date!.compareTo(a.date!));
+    _apodList = await apodRepository.getAPOD();
+    _apodList.sort((a, b) => b.date!.compareTo(a.date!));
     setState(() {});
   }
+
+  List<APODModel> get apodList =>
+      currentAPODList.isEmpty ? _apodList : currentAPODList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const TextField(
-          decoration: InputDecoration(
-            hintText: 'Search by name or date',
+        title: TextField(
+          decoration: const InputDecoration(
+            hintText: 'Search by name or date (yyyy-mm-dd)',
             prefixIcon: Icon(Icons.search),
           ),
+          onChanged: (value) {
+            if (_debounce?.isActive ?? false) _debounce?.cancel();
+            _debounce = Timer(const Duration(milliseconds: 500), () {
+              final parsedValue = DateTime.tryParse(value);
+              currentAPODList = _apodList
+                  .where((element) => parsedValue != null
+                      ? element.date!.isAtSameMomentAs(parsedValue)
+                      : element.title!
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                  .toList();
+              setState(() {});
+            });
+          },
         ),
         centerTitle: true,
       ),
@@ -54,27 +73,27 @@ class _APODPageState extends State<APODPage> {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                itemCount: bla.length,
+                itemCount: apodList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         '/apod_details',
-                        arguments: bla[index],
+                        arguments: apodList[index],
                       );
                     },
                     leading: SizedBox(
                       height: 200,
                       width: 200,
                       child: Hero(
-                        tag: bla[index].date!,
-                        child: APODImage(url: bla[index].url!),
+                        tag: apodList[index].date!,
+                        child: APODImage(url: apodList[index].url!),
                       ),
                     ),
-                    title: Text(bla[index].title!),
+                    title: Text(apodList[index].title!),
                     subtitle: Text(
-                      bla[index].date!.toAPODDate(),
+                      apodList[index].date!.toAPODDate(),
                     ),
                   );
                 },
