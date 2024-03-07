@@ -8,7 +8,6 @@ class APODRepository {
     final response = await _dio.get(
       'https://api.nasa.gov/planetary/apod?api_key=iNRFlRwvry6FNeZrLGrk7hf3nNHutE7lLDgymlFg&start_date=2024-03-01',
     );
-    print(response);
     return (response.data as List)
         .map((e) => APODModel.fromJson(e as Map<String, dynamic>))
         .toList();

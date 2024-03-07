@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa/core/extensions.dart';
 import 'package:nasa/models/apod_model.dart';
 import 'package:nasa/widgets/apod_image.dart';
 
@@ -34,7 +35,7 @@ class APODDetailsPage extends StatelessWidget {
               children: [
                 Text(apod.title!),
                 const SizedBox(height: 4),
-                Text(apod.date!),
+                Text(apod.date!.toAPODDate()),
                 const SizedBox(height: 8),
                 Text(apod.explanation!),
               ],

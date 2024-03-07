@@ -1,6 +1,6 @@
 class APODModel {
   String? copyright;
-  String? date;
+  DateTime? date;
   String? explanation;
   String? hdurl;
   String? mediaType;
@@ -21,7 +21,7 @@ class APODModel {
 
   APODModel.fromJson(Map<String, dynamic> json) {
     copyright = json['copyright'];
-    date = json['date'];
+    date = DateTime.tryParse(json['date']);
     explanation = json['explanation'];
     hdurl = json['hdurl'];
     mediaType = json['media_type'];
@@ -33,7 +33,7 @@ class APODModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['copyright'] = copyright;
-    data['date'] = date;
+    data['date'] = date.toString();
     data['explanation'] = explanation;
     data['hdurl'] = hdurl;
     data['media_type'] = mediaType;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa/core/extensions.dart';
 import 'package:nasa/models/apod_model.dart';
 import 'package:nasa/repositories/apod_repository.dart';
 import 'package:nasa/widgets/apod_image.dart';
@@ -12,17 +13,25 @@ class APODPage extends StatefulWidget {
 
 class _APODPageState extends State<APODPage> {
   List<APODModel> bla = [];
+  late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
     getAPOD();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   getAPOD() async {
     final apodRepository = APODRepository();
     bla = await apodRepository.getAPOD();
-
+    bla.sort((a, b) => b.date!.compareTo(a.date!));
     setState(() {});
   }
 
@@ -31,7 +40,12 @@ class _APODPageState extends State<APODPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Picture of the day'),
+        title: const TextField(
+          decoration: InputDecoration(
+            hintText: 'Search by name or date',
+            prefixIcon: Icon(Icons.search),
+          ),
+        ),
         centerTitle: true,
       ),
       body: Center(
@@ -59,7 +73,9 @@ class _APODPageState extends State<APODPage> {
                       ),
                     ),
                     title: Text(bla[index].title!),
-                    subtitle: Text(bla[index].date!),
+                    subtitle: Text(
+                      bla[index].date!.toAPODDate(),
+                    ),
                   );
                 },
               ),
