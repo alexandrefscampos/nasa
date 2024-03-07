@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa/pages/apod_details_page.dart';
 import 'package:nasa/pages/apod_page.dart';
 
 void main() {
@@ -11,12 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const APODPage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const APODPage(),
+        routes: {
+          '/apod': (context) => const APODPage(),
+          '/apod_details': (context) => const APODDetailsPage(),
+        });
   }
 }

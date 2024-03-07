@@ -1,16 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa/models/apod_model.dart';
+import 'package:nasa/widgets/apod_image.dart';
 
 class APODDetailsPage extends StatelessWidget {
-  final APODModel apod;
   const APODDetailsPage({
     super.key,
-    required this.apod,
   });
 
   @override
   Widget build(BuildContext context) {
+    final apod = ModalRoute.of(context)!.settings.arguments as APODModel;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -24,24 +24,20 @@ class APODDetailsPage extends StatelessWidget {
             width: double.maxFinite,
             child: Hero(
               tag: apod.date!,
-              child: CachedNetworkImage(
-                imageUrl: apod.url!,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator.adaptive(),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                ), //TODO: improve it
-              ),
+              child: APODImage(url: apod.url!),
             ),
           ),
-          ListTile(
-            title: Text(
-              apod.title!,
-            ),
-            subtitle: Text(
-              apod.explanation!,
-              style: const TextStyle(color: Colors.black),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(apod.title!),
+                const SizedBox(height: 4),
+                Text(apod.date!),
+                const SizedBox(height: 8),
+                Text(apod.explanation!),
+              ],
             ),
           ),
         ],

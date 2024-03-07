@@ -1,13 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa/models/apod_model.dart';
-import 'package:nasa/pages/apod_details_page.dart';
 import 'package:nasa/repositories/apod_repository.dart';
+import 'package:nasa/widgets/apod_image.dart';
 
 class APODPage extends StatefulWidget {
-  const APODPage({super.key, required this.title});
-
-  final String title;
+  const APODPage({super.key});
 
   @override
   State<APODPage> createState() => _APODPageState();
@@ -45,46 +42,24 @@ class _APODPageState extends State<APODPage> {
               child: ListView.builder(
                 itemCount: bla.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => APODDetailsPage(
-                                apod: bla[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: SizedBox(
-                          height: 200,
-                          width: double.maxFinite,
-                          child: Hero(
-                            tag: bla[index].date!,
-                            child: CachedNetworkImage(
-                              imageUrl: bla[index].url!,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator.adaptive(),
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                              ), //TODO: improve it
-                            ),
-                          ),
-                        ),
+                  return ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/apod_details',
+                        arguments: bla[index],
+                      );
+                    },
+                    leading: SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: Hero(
+                        tag: bla[index].date!,
+                        child: APODImage(url: bla[index].url!),
                       ),
-                      ListTile(
-                        title: Text(
-                          bla[index].title!,
-                        ),
-                        subtitle: Text(
-                          bla[index].date!,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ],
+                    ),
+                    title: Text(bla[index].title!),
+                    subtitle: Text(bla[index].date!),
                   );
                 },
               ),
