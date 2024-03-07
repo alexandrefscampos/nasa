@@ -10,7 +10,13 @@ class APODImage extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: url,
       fit: BoxFit.cover,
-      placeholder: (context, url) => const CircularProgressIndicator.adaptive(),
+      placeholder: (context, url) => const Center(
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
       errorWidget: (context, url, error) => const Icon(
         Icons.error,
       ), //TODO: improve it

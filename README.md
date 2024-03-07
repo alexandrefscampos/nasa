@@ -27,8 +27,9 @@ TODOLIST:
 [] error handling
 [x] search
 [] improve error 
-[] scroll so big
+[x] circular progress indicator so big
 [x] .env
 [x] dio constants
 [] create readme
 [] check small devices
+[] empty list
