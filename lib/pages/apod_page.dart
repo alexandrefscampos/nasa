@@ -7,7 +7,8 @@ import 'package:nasa/repositories/apod_repository.dart';
 import 'package:nasa/widgets/apod_image.dart';
 
 class APODPage extends StatefulWidget {
-  const APODPage({super.key});
+  final APODRepository apodRepository;
+  const APODPage({super.key, required this.apodRepository});
 
   @override
   State<APODPage> createState() => _APODPageState();
@@ -31,8 +32,7 @@ class _APODPageState extends State<APODPage> {
   }
 
   getAPOD() async {
-    final apodRepository = APODRepository();
-    _apodList = await apodRepository.getAPOD();
+    _apodList = await widget.apodRepository.getAPOD();
     _apodList.sort((a, b) => b.date!.compareTo(a.date!));
     setState(() {});
   }
