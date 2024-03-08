@@ -19,7 +19,7 @@ class APODImage extends StatelessWidget {
       ),
       errorWidget: (context, url, error) => const Icon(
         Icons.error,
-      ), //TODO: improve it
+      ),
     );
   }
 }

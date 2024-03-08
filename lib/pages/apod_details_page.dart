@@ -24,8 +24,12 @@ class APODDetailsPage extends StatelessWidget {
             height: 500,
             width: double.maxFinite,
             child: Hero(
-              tag: apod.date!,
-              child: APODImage(url: apod.url!),
+              tag: apod.date,
+              child: apod.mediaType == MediaType.image
+                  ? APODImage(url: apod.hdurl!)
+                  : const Center(
+                      child: Material(child: Text('Video not supported yet')),
+                    ),
             ),
           ),
           Padding(
@@ -33,11 +37,11 @@ class APODDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(apod.title!),
+                Text(apod.title),
                 const SizedBox(height: 4),
-                Text(apod.date!.toAPODDate()),
+                Text(apod.date.toAPODDate()),
                 const SizedBox(height: 8),
-                Text(apod.explanation!),
+                Text(apod.explanation),
               ],
             ),
           ),

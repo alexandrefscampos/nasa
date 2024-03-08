@@ -1,45 +1,29 @@
-class APODModel {
-  String? copyright;
-  DateTime? date;
-  String? explanation;
-  String? hdurl;
-  String? mediaType;
-  String? serviceVersion;
-  String? title;
-  String? url;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  APODModel({
-    this.copyright,
-    this.date,
-    this.explanation,
-    this.hdurl,
-    this.mediaType,
-    this.serviceVersion,
-    this.title,
-    this.url,
-  });
+part 'apod_model.freezed.dart';
+part 'apod_model.g.dart';
 
-  APODModel.fromJson(Map<String, dynamic> json) {
-    copyright = json['copyright'];
-    date = DateTime.tryParse(json['date']);
-    explanation = json['explanation'];
-    hdurl = json['hdurl'];
-    mediaType = json['media_type'];
-    serviceVersion = json['service_version'];
-    title = json['title'];
-    url = json['url'];
-  }
+@freezed
+sealed class APODModel with _$APODModel {
+  @JsonSerializable(
+    fieldRename: FieldRename.snake,
+  )
+  const factory APODModel({
+    required DateTime date,
+    required String explanation,
+    String? hdurl,
+    required MediaType mediaType,
+    required String serviceVersion,
+    required String title,
+    required String url,
+    String? copyright,
+  }) = _APODModel;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['copyright'] = copyright;
-    data['date'] = date.toString();
-    data['explanation'] = explanation;
-    data['hdurl'] = hdurl;
-    data['media_type'] = mediaType;
-    data['service_version'] = serviceVersion;
-    data['title'] = title;
-    data['url'] = url;
-    return data;
-  }
+  factory APODModel.fromJson(Map<String, dynamic> json) =>
+      _$APODModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => toJson();
 }
+
+enum MediaType { image, video }

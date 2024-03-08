@@ -33,7 +33,7 @@ class _APODPageState extends State<APODPage> {
 
   getAPOD() async {
     _apodList = await widget.apodRepository.getAPOD();
-    _apodList.sort((a, b) => b.date!.compareTo(a.date!));
+    _apodList.sort((a, b) => b.date.compareTo(a.date));
     setState(() {});
   }
 
@@ -56,8 +56,8 @@ class _APODPageState extends State<APODPage> {
               final parsedValue = DateTime.tryParse(value);
               currentAPODList = _apodList
                   .where((element) => parsedValue != null
-                      ? element.date!.isAtSameMomentAs(parsedValue)
-                      : element.title!
+                      ? element.date.isAtSameMomentAs(parsedValue)
+                      : element.title
                           .toLowerCase()
                           .contains(value.toLowerCase()))
                   .toList();
@@ -83,17 +83,23 @@ class _APODPageState extends State<APODPage> {
                         arguments: apodList[index],
                       );
                     },
+                    title: Text(apodList[index].title),
+                    subtitle: Text(
+                      apodList[index].date.toAPODDate(),
+                    ),
                     leading: SizedBox(
                       height: 200,
                       width: 200,
                       child: Hero(
-                        tag: apodList[index].date!,
-                        child: APODImage(url: apodList[index].url!),
+                        tag: apodList[index].date,
+                        child: apodList[index].mediaType == MediaType.image
+                            ? APODImage(url: apodList[index].hdurl!)
+                            : const Center(
+                                child: Material(
+                                  child: Text('Video not supported yet'),
+                                ),
+                              ),
                       ),
-                    ),
-                    title: Text(apodList[index].title!),
-                    subtitle: Text(
-                      apodList[index].date!.toAPODDate(),
                     ),
                   );
                 },

@@ -26,7 +26,7 @@ TODOLIST:
 [] cache
 [] error handling
 [x] search
-[] improve error 
+[x] improve image error handling  
 [x] circular progress indicator so big
 [x] .env
 [x] dio constants
