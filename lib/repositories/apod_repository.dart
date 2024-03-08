@@ -39,17 +39,4 @@ class APODRepository {
       return apodList;
     }
   }
-
-  // final APODRemoteDataSource remoteDataSource;
-
-  // APODRepository({required this.remoteDataSource});
-
-  // Future<APOD> getAPOD(DateTime date) async {
-  //   try {
-  //     final apod = await remoteDataSource.getAPOD(date);
-  //     return apod;
-  //   } on ServerException {
-  //     throw ServerException();
-  //   }
-  // }
 }
