@@ -23,7 +23,7 @@ TODOLIST:
 [] infinity scroll pagination
 [] usecases/repository separation
 [] bloc
-[] cache
+[x] cache
 [] error handling
 [x] search
 [x] improve image error handling  

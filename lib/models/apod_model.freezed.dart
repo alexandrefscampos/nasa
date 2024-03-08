@@ -20,13 +20,21 @@ APODModel _$APODModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$APODModel {
+  @HiveField(0)
   DateTime get date => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get explanation => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get hdurl => throw _privateConstructorUsedError;
+  @HiveField(3)
   MediaType get mediaType => throw _privateConstructorUsedError;
+  @HiveField(4)
   String get serviceVersion => throw _privateConstructorUsedError;
+  @HiveField(5)
   String get title => throw _privateConstructorUsedError;
+  @HiveField(6)
   String get url => throw _privateConstructorUsedError;
+  @HiveField(7)
   String? get copyright => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,14 +49,14 @@ abstract class $APODModelCopyWith<$Res> {
       _$APODModelCopyWithImpl<$Res, APODModel>;
   @useResult
   $Res call(
-      {DateTime date,
-      String explanation,
-      String? hdurl,
-      MediaType mediaType,
-      String serviceVersion,
-      String title,
-      String url,
-      String? copyright});
+      {@HiveField(0) DateTime date,
+      @HiveField(1) String explanation,
+      @HiveField(2) String? hdurl,
+      @HiveField(3) MediaType mediaType,
+      @HiveField(4) String serviceVersion,
+      @HiveField(5) String title,
+      @HiveField(6) String url,
+      @HiveField(7) String? copyright});
 }
 
 /// @nodoc
@@ -119,14 +127,14 @@ abstract class _$$APODModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DateTime date,
-      String explanation,
-      String? hdurl,
-      MediaType mediaType,
-      String serviceVersion,
-      String title,
-      String url,
-      String? copyright});
+      {@HiveField(0) DateTime date,
+      @HiveField(1) String explanation,
+      @HiveField(2) String? hdurl,
+      @HiveField(3) MediaType mediaType,
+      @HiveField(4) String serviceVersion,
+      @HiveField(5) String title,
+      @HiveField(6) String url,
+      @HiveField(7) String? copyright});
 }
 
 /// @nodoc
@@ -191,33 +199,41 @@ class __$$APODModelImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$APODModelImpl implements _APODModel {
   const _$APODModelImpl(
-      {required this.date,
-      required this.explanation,
-      this.hdurl,
-      required this.mediaType,
-      required this.serviceVersion,
-      required this.title,
-      required this.url,
-      this.copyright});
+      {@HiveField(0) required this.date,
+      @HiveField(1) required this.explanation,
+      @HiveField(2) this.hdurl,
+      @HiveField(3) required this.mediaType,
+      @HiveField(4) required this.serviceVersion,
+      @HiveField(5) required this.title,
+      @HiveField(6) required this.url,
+      @HiveField(7) this.copyright});
 
   factory _$APODModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$APODModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final DateTime date;
   @override
+  @HiveField(1)
   final String explanation;
   @override
+  @HiveField(2)
   final String? hdurl;
   @override
+  @HiveField(3)
   final MediaType mediaType;
   @override
+  @HiveField(4)
   final String serviceVersion;
   @override
+  @HiveField(5)
   final String title;
   @override
+  @HiveField(6)
   final String url;
   @override
+  @HiveField(7)
   final String? copyright;
 
   @override
@@ -265,33 +281,41 @@ class _$APODModelImpl implements _APODModel {
 
 abstract class _APODModel implements APODModel {
   const factory _APODModel(
-      {required final DateTime date,
-      required final String explanation,
-      final String? hdurl,
-      required final MediaType mediaType,
-      required final String serviceVersion,
-      required final String title,
-      required final String url,
-      final String? copyright}) = _$APODModelImpl;
+      {@HiveField(0) required final DateTime date,
+      @HiveField(1) required final String explanation,
+      @HiveField(2) final String? hdurl,
+      @HiveField(3) required final MediaType mediaType,
+      @HiveField(4) required final String serviceVersion,
+      @HiveField(5) required final String title,
+      @HiveField(6) required final String url,
+      @HiveField(7) final String? copyright}) = _$APODModelImpl;
 
   factory _APODModel.fromJson(Map<String, dynamic> json) =
       _$APODModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   DateTime get date;
   @override
+  @HiveField(1)
   String get explanation;
   @override
+  @HiveField(2)
   String? get hdurl;
   @override
+  @HiveField(3)
   MediaType get mediaType;
   @override
+  @HiveField(4)
   String get serviceVersion;
   @override
+  @HiveField(5)
   String get title;
   @override
+  @HiveField(6)
   String get url;
   @override
+  @HiveField(7)
   String? get copyright;
   @override
   @JsonKey(ignore: true)
